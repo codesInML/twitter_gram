@@ -29,12 +29,10 @@ export const createSessionHandler = async (req: Request, res: Response) => {
 
 export const getUserSessionHandler = async (req: Request, res: Response) => {
     const {userId} = res.locals.user.dataValues
-    // console.log(res.locals.user)
 
     const sessions = await findSessions({userId, valid: true})
 
     return res.status(200).json({msg: "success", sessions})
-    // return res.status(200).json({msg: "success", user})
 }
 
 export const deleteUserSessionHandler = async (req: Request, res: Response) => {
