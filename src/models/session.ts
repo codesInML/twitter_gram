@@ -4,6 +4,7 @@ import {
 } from 'sequelize'
 
 interface SessionAttribute {
+  id: string
   userId: string
   valid: boolean
   createdAt?: Date
@@ -19,6 +20,7 @@ module.exports = (sequelize: any, DataTypes: any ) => {
      * The `models/index` file will call this method automatically.
      */
 
+    id!: string
     userId!: string
     valid!: boolean
     userAgent!: string
@@ -35,12 +37,14 @@ module.exports = (sequelize: any, DataTypes: any ) => {
         onDelete: "CASCADE"
       })
     }
-
-    toJSON () {
-      return { ...this.get(), id: undefined }
-    }
   };
   Session.init({
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
+    },
     userId: {
       type: DataTypes.UUID,
       allowNull: false

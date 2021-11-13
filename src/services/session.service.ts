@@ -28,8 +28,12 @@ export async function reIssueAccessToken ({refreshToken}: {refreshToken: string}
     // create an access token
     const accessToken = signJWT(
         { ...user, session: session.userId },
-        {expiresIn: process.env.ACCESS_TOKEN_TTL as string}) // 15 minutes
+        {expiresIn: process.env.ACCESS_TOKEN_TTL as string}) // 5 minutes
 
 
     return accessToken
+}
+
+export const updateSessions = async({userId, valid}: {userId: string, valid: boolean}) => {
+    return await SessionDAL.update(userId, valid)
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import UnauthenticatedError from '../errors/unauthenticated'
-import { createSession, findSessions } from '../services/session.service'
+import { createSession, findSessions, updateSessions } from '../services/session.service'
 import { validatePassword } from '../services/user.service'
 import { signJWT } from '../utils/jwt-utils'
 
@@ -16,21 +16,31 @@ export const createSessionHandler = async (req: Request, res: Response) => {
 
     // create an access token
     const accessToken = signJWT(
-        { ...user, session: session.userId },
+        { ...user, session: session.id },
         {expiresIn: process.env.ACCESS_TOKEN_TTL as string}) // 5 minutes
 
     // create an access token
     const refreshToken = signJWT(
-        { ...user, session: session.userId },
+        { ...user, session: session.id },
         {expiresIn: process.env.REFRESH_TOKEN_TTL as string}) // 1 year
 
     return res.status(200).json({accessToken, refreshToken})
 }
 
 export const getUserSessionHandler = async (req: Request, res: Response) => {
-    const {session} = res.locals.user
+    const {userId} = res.locals.user.dataValues
+    // console.log(res.locals.user)
 
-    const sessions = await findSessions({userId: session, valid: true})
+    const sessions = await findSessions({userId, valid: true})
 
     return res.status(200).json({msg: "success", sessions})
+    // return res.status(200).json({msg: "success", user})
+}
+
+export const deleteUserSessionHandler = async (req: Request, res: Response) => {
+    const sessionId = res.locals.user.session
+
+    await updateSessions({userId: sessionId, valid: false})
+    
+    return res.status(200).json({accessToken: null, refreshToken: null})
 }

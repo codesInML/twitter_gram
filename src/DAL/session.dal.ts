@@ -7,10 +7,14 @@ export const create = async (userId: string, userAgent: string): Promise<Session
     return await Session.create({userId, userAgent})
 }
 
-export const findOne = async (userId: string): Promise<SessionOutput> => {
-    return await Session.findOne({ where: { userId } })
+export const findOne = async (id: string): Promise<SessionOutput> => {
+    return await Session.findOne({ where: { id } })
 }
 
 export const findAll = async (userId: string, valid: boolean): Promise<SessionOutput> => {
     return await Session.findAll({ where: { userId, valid } })
+}
+
+export const update = async (userId: string, valid: boolean): Promise<SessionOutput> => {
+    return await Session.update({ valid }, { where: { userId } })
 }

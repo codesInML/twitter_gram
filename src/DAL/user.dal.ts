@@ -8,7 +8,5 @@ export const create =  async (input: UserInput): Promise<UserOutput> => {
 }
 
 export const findOne = async (input: string): Promise<UserOutput> => {
-    const userByEmail = await User.findOne({ where: { email: input } })
-    const userById = await User.findOne({ where: { userId: input } })
-    return (userByEmail !== null) ? userByEmail : userById
+    return (input.includes("@")) ? await User.findOne({ where: { email: input } }) : await User.findOne({ where: { userId: input } })
 }

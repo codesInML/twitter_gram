@@ -27,7 +27,7 @@ const deserializeUser = async (req: Request, res: Response, next: NextFunction) 
         console.log("expired access token, created new with valid refresh token")
 
         if (!newAccessToken) {
-            throw new ForbiddenError("fobidden")
+            throw new ForbiddenError("did not reissue access token")
         }
         
         res.setHeader('x-access-token', newAccessToken)
