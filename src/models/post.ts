@@ -25,6 +25,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
     static associate(models: any) {
       // define association here
+
+      const {User} = models
+
+      this.belongsTo(User, { targetKey: "userId", foreignKey: {
+        allowNull: false,
+        name: "userId"
+      } })
     }
   };
   Post.init({

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
 import UnauthenticatedError from '../errors/unauthenticated'
 import { createSession, findSessions, updateSessions } from '../services/session.service'
 import { validatePassword } from '../services/user.service'
@@ -24,7 +25,7 @@ export const createSessionHandler = async (req: Request, res: Response) => {
         { ...user, session: session.id },
         {expiresIn: process.env.REFRESH_TOKEN_TTL as string}) // 1 year
 
-    return res.status(200).json({accessToken, refreshToken})
+    return res.status(StatusCodes.CREATED).json({status: "success", accessToken, refreshToken})
 }
 
 export const getUserSessionHandler = async (req: Request, res: Response) => {
@@ -32,7 +33,7 @@ export const getUserSessionHandler = async (req: Request, res: Response) => {
 
     const sessions = await findSessions({userId, valid: true})
 
-    return res.status(200).json({msg: "success", sessions})
+    return res.status(StatusCodes.OK).json({status: "success", sessions})
 }
 
 export const deleteUserSessionHandler = async (req: Request, res: Response) => {
@@ -40,5 +41,5 @@ export const deleteUserSessionHandler = async (req: Request, res: Response) => {
 
     await updateSessions({userId: sessionId, valid: false})
     
-    return res.status(200).json({accessToken: null, refreshToken: null})
+    return res.status(StatusCodes.OK).json({status: "success", accessToken: null, refreshToken: null})
 }

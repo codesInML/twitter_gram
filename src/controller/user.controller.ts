@@ -5,5 +5,5 @@ import { createUser } from "../services/user.service"
 
 export const createUserHandler = async (req: Request<{}, {}, CreateUserInput["body" ]>, res: Response) => {
     const user = await createUser({...req.body, isActive: true})
-    return res.status(StatusCodes.OK).json({msg: "success", user}) 
+    return res.status(StatusCodes.CREATED).json({status: "success", user}) 
 }

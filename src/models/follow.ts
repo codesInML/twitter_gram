@@ -1,15 +1,25 @@
 'use strict';
-const {
+import {
   Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Follow extends Model {
+} from 'sequelize'
+
+interface FollowAttributes {
+  userId: string
+  followedId: string
+}
+
+module.exports = (sequelize: any, DataTypes: any) => {
+  class Follow extends Model<FollowAttributes> implements FollowAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+
+    userId!: string
+    followedId!: string
+
+    static associate(models: any) {
       // define association here
     }
   };

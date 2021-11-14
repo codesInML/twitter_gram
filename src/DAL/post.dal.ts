@@ -1,8 +1,7 @@
-import db from "../models"
 import { PostInput, PostOutput } from "../models/post"
-
-const {Post} = db
+import { findOne } from "./user.dal"
 
 export const create = async (payload: PostInput): Promise<PostOutput> => {
-    return Post.create(payload)
+    const user = await findOne(payload.userId)
+    return await user.createPost(payload)
 }

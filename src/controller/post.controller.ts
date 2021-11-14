@@ -23,5 +23,5 @@ export const createPostHandler = async (req: Request, res: Response) => {
 
     const post = await createPost({userId, img_url, caption })
 
-    return res.status(StatusCodes.OK).json({msg: "successfully updloaded post", post})
+    return res.status(StatusCodes.OK).json({status: "success", msg: "updloaded post", post})
 }
