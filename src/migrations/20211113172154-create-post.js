@@ -8,6 +8,10 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false
+      },
       img_url: {
         type: DataTypes.STRING
       },

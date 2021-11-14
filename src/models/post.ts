@@ -33,16 +33,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       allowNull: false
     },
     img_url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Please provide a link to your image'
-        },
-        notEmpty: {
-          msg: "image cannot be empty"
-        }
-      }
+      type: DataTypes.STRING
     },
     caption: DataTypes.STRING
   }, {
