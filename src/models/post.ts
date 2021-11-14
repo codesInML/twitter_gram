@@ -1,11 +1,14 @@
 'use strict';
 import {
-  Model
+  Model, Optional
 } from 'sequelize'
 
 interface PostAttributes {
+  userId: string
   img_url: string
   caption: string
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -18,12 +21,17 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
     img_url!: string
     caption!: string
+    userId!: string
 
     static associate(models: any) {
       // define association here
     }
   };
   Post.init({
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
     img_url: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -43,3 +51,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
   });
   return Post;
 };
+
+export interface PostInput extends  Optional<Required<PostAttributes>, "createdAt" | "updatedAt"> {}
+export interface PostOutput extends Required<PostAttributes> {}

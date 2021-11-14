@@ -1,6 +1,8 @@
 // configure the environment variables
 require('dotenv').config()
 
+global.__basedir = __dirname
+
 // set the port
 const PORT = process.env.PORT
 
@@ -8,14 +10,14 @@ const PORT = process.env.PORT
 import 'express-async-errors'
 
 // bring in the database connection
-import db from './models'
+import db from './src/models'
 
 // initialize the express app
 import express, {Application} from 'express'
 const app : Application = express()
 
 // logger
-import log from './utils/logger'
+import log from './src/utils/logger'
 
 // security packages
 import helmet from 'helmet'
@@ -24,14 +26,15 @@ const xss = require('xss-clean')
 import rateLimit from 'express-rate-limit'
 
 // import middlewares
-import Routes from './routes'
-import {errorHandlerMiddleware} from './middleware/error-handler'
-import {notFound} from './middleware/not-found'
-import deserializeUser from './middleware/deserialize-user'
+import Routes from './src/routes'
+import {errorHandlerMiddleware} from './src/middleware/error-handler'
+import {notFound} from './src/middleware/not-found'
+import deserializeUser from './src/middleware/deserialize-user'
 
 // security middlewares
 app.set("trust proxy", 1)
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
 app.use(cors())
 app.use(xss())
