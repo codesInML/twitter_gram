@@ -37,13 +37,17 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
     static associate(models: any) {
       // define association here
-      const {Session} = models
+      const {Session, User} = models
 
       // association with the session
       this.hasMany(Session, { sourceKey: "userId", foreignKey: {
         allowNull: false,
         name: "userId"
       } })
+
+      // user association with user (Follow)
+      this.belongsToMany(User, {as: "User", foreignKey: "userId", sourceKey: "userId", targetKey: "userId", through: "Follow"})
+      this.belongsToMany(User, {as: "Followed", foreignKey: "followedId", sourceKey: "userId", targetKey: "followedId", through: "Follow"})
     }
 
     toJSON () {
