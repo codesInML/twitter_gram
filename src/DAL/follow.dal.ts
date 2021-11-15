@@ -1,5 +1,6 @@
 import { BadRequestError } from "../errors"
 import { FollowInput } from "../models/follow"
+import { UserOutput } from "../models/user"
 import { findOne } from "./user.dal"
 
 export const create = async (payload: FollowInput) => {
@@ -24,4 +25,10 @@ export const remove = async (payload: FollowInput) => {
     if (!(await followed.hasFollowed(user))) throw new BadRequestError("you do not follow user")
 
     await followed.removeFollowed(user)
+}
+
+export const findAllFollowers = async (userId: string): Promise<UserOutput []> => {
+    const user = await findOne(userId)
+
+    return await user.getFollowed()
 }
