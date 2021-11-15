@@ -27,7 +27,7 @@ export const errorHandlerMiddleware:ErrorRequestHandler = (err, req, res, next) 
     customError.statusCode = StatusCodes.BAD_REQUEST
   }
   
-  log.error(`code: ${customError.statusCode}`, customError.message)
+  log.error(`error: ${customError.message}`)
   return res.status(customError.statusCode).json({ status: "failed", err: customError.message })
 }
 

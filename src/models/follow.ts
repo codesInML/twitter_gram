@@ -38,3 +38,5 @@ module.exports = (sequelize: any, DataTypes: any) => {
   });
   return Follow;
 };
+
+export interface FollowInput extends Required<FollowAttributes> {}
