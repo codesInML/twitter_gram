@@ -2,7 +2,7 @@ import {Request, Response} from "express"
 import { StatusCodes } from "http-status-codes"
 import { BadRequestError } from "../errors"
 import uploadFileMiddleware from "../middleware/upload"
-import { createPost, getUserPosts } from "../services/post.service"
+import { createPost, getPosts, getUserPosts } from "../services/post.service"
 
 // create the post
 export const createPostHandler = async (req: Request, res: Response) => {
@@ -34,7 +34,9 @@ export const getAllUserPostHandler = async (req: Request, res: Response) => {
 
 // get both the user's post and post of those the user follows
 export const getAllPostHandler = async (req: Request, res: Response) => {
-    return res.status(StatusCodes.OK).send("These are all the posts")
+    const {userId} = res.locals.user
+    const posts = await getPosts(userId)
+    return res.status(StatusCodes.OK).json({status: "success", posts})
 }
 
 // update user's post

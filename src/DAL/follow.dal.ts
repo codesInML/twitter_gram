@@ -2,6 +2,9 @@ import { BadRequestError } from "../errors"
 import { FollowInput } from "../models/follow"
 import { UserOutput } from "../models/user"
 import { findOne } from "./user.dal"
+import db from "../models"
+
+const {Follow} = db
 
 export const create = async (payload: FollowInput) => {
     const followed = await findOne(payload.followedId)
@@ -30,5 +33,7 @@ export const remove = async (payload: FollowInput) => {
 export const findAllFollowers = async (userId: string): Promise<UserOutput []> => {
     const user = await findOne(userId)
 
-    return await user.getFollowed()
+    return await user.getFollowed({
+        attributes: ["userId", "firstName", "lastName"]
+    })
 }
