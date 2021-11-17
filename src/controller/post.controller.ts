@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express"
 import { StatusCodes } from "http-status-codes"
-import { BadRequestError, ForbiddenError } from "../errors"
+import { ForbiddenError } from "../errors"
 import { postUpload } from "../utils/image-upload-utils"
 import { createPost, deletePost, getPost, getPosts, getUserPosts, updatePost } from "../services/post.service"
 import { deleteImage } from "../utils/delete-image-utils"
