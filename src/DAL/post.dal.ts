@@ -1,6 +1,9 @@
 import { PostInput, PostOutput } from "../models/post"
 import { findOne } from "./user.dal"
 import db from "../models"
+import { BadRequestError, ForbiddenError } from "../errors"
+import { deleteImage } from "../utils/delete-image-utils"
+import { NextFunction } from "express"
 
 const {Post} = db
 
@@ -27,10 +30,26 @@ export const findAllPosts = async (userId: string) => {
 }
 
 export const findPost = async (postId: number): Promise<PostOutput> => {
-    return (await Post.findOne({ where: {id: postId} })).toJSON()
+    const post = await Post.findOne({ where: {id: postId} })
+
+    if (!post) throw new BadRequestError(`no post with the id ${postId}`)
+    
+    return post.toJSON()
 }
 
 export const update = async (postId: number, payload: object): Promise<PostOutput> => {
-    const post = await Post.findOne({ where: { id: postId } })
+    const post: PostOutput = await Post.findOne({ where: { id: postId } })
     return await post.update(payload)
+}
+
+export const deletepost = async (postId: number, userId: string, next: NextFunction) => {
+    const post: PostOutput = await Post.findOne({ where: { id: postId } })
+
+    // check if the user own the post
+    if (post.userId !== userId) throw new ForbiddenError("You cannot delete this post")
+
+    // delete the image
+    if (post.img_url !== null) deleteImage(post, next)
+
+    await post.destroy()
 }

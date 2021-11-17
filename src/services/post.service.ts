@@ -1,3 +1,4 @@
+import { NextFunction } from "express"
 import { flatten } from "lodash"
 import * as PostDAL from "../DAL/post.dal"
 import { PostInput, PostOutput } from "../models/post"
@@ -23,4 +24,8 @@ export const getPost = async (postId: number): Promise<PostOutput> => {
 export const updatePost = async (postId: number, {img_url, caption}: {img_url?: string, caption?: string}): Promise<PostOutput> => {
     const payload = {img_url, caption}
     return await PostDAL.update(postId, payload)
+}
+
+export const deletePost = async (postId: number, userId: string, next: NextFunction) => {
+    await PostDAL.deletepost(postId, userId, next)
 }
