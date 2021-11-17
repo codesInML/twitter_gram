@@ -22,3 +22,7 @@ export const unfollowUser = async (payload: FollowInput) => {
 export const getAllFollowers = async (userId: string): Promise<UserOutput []> => {
     return followDAL.findAllFollowers(userId)
 }
+
+export const getAllFollowing = async (userId: string): Promise<UserOutput []> => {
+    return followDAL.findAllFollowing(userId)
+}

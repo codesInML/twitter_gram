@@ -21,10 +21,16 @@ export const findAllPosts = async (userId: string) => {
         attributes: [],
         joinTableAttributes: [],
         include: [{
-            model: Post,
-            // through: {
-            //     attributes: []
-            // }
+            model: Post
         }]
     })
+}
+
+export const findPost = async (postId: number): Promise<PostOutput> => {
+    return (await Post.findOne({ where: {id: postId} })).toJSON()
+}
+
+export const update = async (postId: number, payload: object): Promise<PostOutput> => {
+    const post = await Post.findOne({ where: { id: postId } })
+    return await post.update(payload)
 }

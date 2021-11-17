@@ -1,6 +1,6 @@
 import {Request, Response} from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { followUser, getAllFollowers, unfollowUser } from '../services/follow.service'
+import { followUser, getAllFollowers, getAllFollowing, unfollowUser } from '../services/follow.service'
 
 // follow someone
 export const followUserHandler = async (req: Request, res: Response) => {
@@ -29,4 +29,13 @@ export const getAllFollowersHandler = async (req: Request, res: Response) => {
     const followers = await getAllFollowers(userId)
 
     return res.status(StatusCodes.OK).json({status: "success", followers})
+}
+
+// get all the people the user is following
+export const getAllFollowingHandler = async (req: Request, res: Response) => {
+    const {userId} = res.locals.user
+
+    const following = await getAllFollowing(userId)
+
+    return res.status(StatusCodes.OK).json({status: "success", following})
 }

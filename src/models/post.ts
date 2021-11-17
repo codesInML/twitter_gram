@@ -5,8 +5,8 @@ import {
 
 interface PostAttributes {
   userId: string
-  img_url: string
-  caption: string
+  img_url?: string
+  caption?: string
   createdAt?: Date
   updatedAt?: Date
 }
@@ -50,5 +50,5 @@ module.exports = (sequelize: any, DataTypes: any) => {
   return Post;
 };
 
-export interface PostInput extends  Optional<Required<PostAttributes>, "createdAt" | "updatedAt"> {}
+export interface PostInput extends  PostAttributes {}
 export interface PostOutput extends Required<PostAttributes> {}

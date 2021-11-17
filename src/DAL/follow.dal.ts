@@ -34,6 +34,16 @@ export const findAllFollowers = async (userId: string): Promise<UserOutput []> =
     const user = await findOne(userId)
 
     return await user.getFollowed({
-        attributes: ["userId", "firstName", "lastName"]
+        attributes: ["userId", "firstName", "lastName"],
+        joinTableAttributes: []
+    })
+}
+
+export const findAllFollowing = async (userId: string): Promise<UserOutput []> => {
+    const user = await findOne(userId)
+
+    return await user.getUser({
+        attributes: ["userId", "firstName", "lastName"],
+        joinTableAttributes: []
     })
 }

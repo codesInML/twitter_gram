@@ -10,8 +10,17 @@ export const getUserPosts = async (userId: string): Promise<PostOutput []> => {
     return await PostDAL.findAllUserPosts(userId)
 }
 
-export const getPosts = async (userId: string): Promise<PostOutput []> => {
+export const getPosts = async (userId: string) => {
     const data = await PostDAL.findAllPosts(userId)
     const posts = flatten(data.map((item: any) => item.toJSON().Posts.map((post: any) => post.toJSON())))
     return posts
+}
+
+export const getPost = async (postId: number): Promise<PostOutput> => {
+    return await PostDAL.findPost(postId)
+}
+
+export const updatePost = async (postId: number, {img_url, caption}: {img_url?: string, caption?: string}): Promise<PostOutput> => {
+    const payload = {img_url, caption}
+    return await PostDAL.update(postId, payload)
 }
