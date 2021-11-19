@@ -37,7 +37,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       // association with the post
       this.hasMany(Comment, { sourceKey: "id", foreignKey: {
         allowNull: false,
-        name: "id"
+        name: "postId"
       } })
     }
   };

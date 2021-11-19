@@ -5,8 +5,9 @@ import {
 
 interface CommentAttributes {
   userId: string
-  text: string
-  postId: number
+  postId?: number
+  text?: string
+  img_url?: string
   id?: number
   createdAt?: Date
   updatedAt?: Date
@@ -31,7 +32,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       // association with the post
       this.belongsTo(Post, { targetKey: "id", foreignKey: {
         allowNull: false,
-        name: "id"
+        name: "postId"
       } })
 
       // association with the user
@@ -45,6 +46,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     text: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    img_url: {
+      type: DataTypes.STRING
     },
     userId: {
       type: DataTypes.STRING,

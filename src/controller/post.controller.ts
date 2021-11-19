@@ -13,7 +13,7 @@ export const createPostHandler = async (req: Request, res: Response) => {
 
     const post = await createPost({userId, ...payload })
 
-    return res.status(StatusCodes.OK).json({status: "success", msg: "updloaded post", post})
+    return res.status(StatusCodes.CREATED).json({status: "success", msg: "updloaded post", post})
 }
 
 // get all post the user has created
