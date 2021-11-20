@@ -1,6 +1,6 @@
 import {number, object, string} from 'zod'
 
-export const commentSchema = object({
+export const createCommentSchema = object({
     body: object({
         text: string({
             required_error: "No comment was given"

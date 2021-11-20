@@ -36,13 +36,13 @@ export const updateUserPostHandler = async (req: Request, res: Response, next: N
     
     const post = await getPost(postId)
 
+    const {userId} = res.locals.user
+    
+    // check if the user own the post
+    if (post.userId !== userId) throw new ForbiddenError("You cannot update this post")
+    
     const payload = await postUpload(req, res)
     
-    const {userId} = res.locals.user
-
-    // check if the user own the post
-    if (post.userId !== userId) throw new ForbiddenError("You cannot delete this post")
-
     // check if image was given and the post was not initially empty
     if (payload.img_url && post.img_url !== null) {
         // if image was given and post previouly had an image, then delete the image
