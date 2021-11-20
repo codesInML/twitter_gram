@@ -1,5 +1,8 @@
 import { CommentInput, CommentOutput } from "../models/comment"
 import db from "../models"
+import { NextFunction } from "express"
+import { ForbiddenError } from "../errors"
+import { deleteImage } from "../utils/delete-image-utils"
 
 const {Post, Comment} = db
 
@@ -27,6 +30,14 @@ export const update = async ({
     return await comment.update({text, img_url})
 }
 
-export const deleteComment = async () => {
+export const destroy = async (commentId: number, userId: string, next: NextFunction) => {
+    const comment = await Comment.findOne({ where: { id: commentId } })
 
+    // check if the user own the comment
+    if (comment.userId !== userId) throw new ForbiddenError("You cannot delete this comment")
+
+    // delete the image
+    if (comment.img_url !== null) deleteImage(comment.img_url, next)
+
+    await comment.destroy()
 }

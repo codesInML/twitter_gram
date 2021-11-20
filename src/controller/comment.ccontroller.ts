@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { ForbiddenError } from '../errors'
-import { createComment, getComment, updateComment } from '../services/comment.service'
+import { createComment, deleteComment, getComment, updateComment } from '../services/comment.service'
 import { deleteImage } from '../utils/delete-image-utils'
 import { postUpload } from '../utils/image-upload-utils'
 
@@ -30,7 +30,7 @@ export const editCommentHandler = async (req: Request, res: Response, next: Next
     // check if image was given and the post was not initially empty
     if (payload.img_url && post.img_url !== null) {
         // if image was given and post previouly had an image, then delete the image
-        deleteImage(post, next)
+        deleteImage(post.img_url, next)
     }
 
     const comment = await updateComment({ userId, ...payload })
@@ -38,6 +38,11 @@ export const editCommentHandler = async (req: Request, res: Response, next: Next
     return res.status(StatusCodes.CREATED).json({status: "success", msg: "comment edited", comment})
 }
 
-export const deleteCommentHandler = async (req: Request, res: Response) => {
+export const deleteCommentHandler = async (req: Request, res: Response, next: NextFunction) => {
+    const {userId} = res.locals.user
+    const {commentId} = req.params
+
+    await deleteComment(commentId as any as number, userId, next)
+
     return res.status(StatusCodes.OK).json({status: "success", msg: "comment deleted"})
 }

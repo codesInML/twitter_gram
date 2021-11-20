@@ -49,7 +49,7 @@ export const deletepost = async (postId: number, userId: string, next: NextFunct
     if (post.userId !== userId) throw new ForbiddenError("You cannot delete this post")
 
     // delete the image
-    if (post.img_url !== null) deleteImage(post, next)
+    if (post.img_url !== null) deleteImage(post.img_url, next)
 
     await post.destroy()
 }

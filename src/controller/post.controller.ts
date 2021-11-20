@@ -46,7 +46,7 @@ export const updateUserPostHandler = async (req: Request, res: Response, next: N
     // check if image was given and the post was not initially empty
     if (payload.img_url && post.img_url !== null) {
         // if image was given and post previouly had an image, then delete the image
-        deleteImage(post, next)
+        deleteImage(post.img_url, next)
     }
 
     const updatedPost = await updatePost(postId, payload)
