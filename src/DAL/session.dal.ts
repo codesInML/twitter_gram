@@ -1,7 +1,7 @@
 import { SessionOutput } from "../models/session";
-import db from '../models'
+import models from '../models'
 
-const {Session} = db
+const {Session} = models
 
 export const create = async (userId: string, userAgent: string): Promise<SessionOutput> => {
     return await Session.create({userId, userAgent})

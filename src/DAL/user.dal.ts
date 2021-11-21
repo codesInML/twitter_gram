@@ -1,7 +1,7 @@
 import { UserInput, UserOutput } from "../models/user";
-import db from '../models'
+import models from '../models'
 
-const {User} = db
+const {User} = models
 
 export const create =  async (input: UserInput): Promise<UserOutput> => {
     return await User.create(input)

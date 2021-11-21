@@ -1,11 +1,11 @@
 import { PostInput, PostOutput } from "../models/post"
 import { findOne } from "./user.dal"
-import db from "../models"
+import models from "../models"
 import { BadRequestError, ForbiddenError } from "../errors"
 import { deleteImage } from "../utils/delete-image-utils"
 import { NextFunction } from "express"
 
-const {Post} = db
+const {Post} = models
 
 export const create = async (payload: PostInput): Promise<PostOutput> => {
     const user = await findOne(payload.userId)

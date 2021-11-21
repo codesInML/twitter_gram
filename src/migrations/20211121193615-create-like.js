@@ -14,6 +14,10 @@ module.exports = {
       postId: {
         type: DataTypes.INTEGER
       },
+      deletedAt: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE

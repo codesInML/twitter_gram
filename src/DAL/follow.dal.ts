@@ -2,9 +2,9 @@ import { BadRequestError } from "../errors"
 import { FollowInput } from "../models/follow"
 import { UserOutput } from "../models/user"
 import { findOne } from "./user.dal"
-import db from "../models"
+import models from "../models"
 
-const {Follow} = db
+const {Follow} = models
 
 export const create = async (payload: FollowInput) => {
     const followed = await findOne(payload.followedId)

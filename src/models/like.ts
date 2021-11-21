@@ -1,13 +1,14 @@
 'use strict';
 import {
-  Model, ModelType
+  Model
 } from 'sequelize'
 
 interface LikeAttributes {
   userId: string
-  postId: number
+  postId?: number
   createdAt?: Date
   updatedAt?: Date
+  deletedAt?: Date
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -19,10 +20,32 @@ module.exports = (sequelize: any, DataTypes: any) => {
      */
 
     userId!: string
-    postId!: number
 
-    static associate(models: ModelType) {
+    static associate(models: any) {
       // define association here
+      const {
+        User,
+        Post,
+        Comment
+      } = models
+
+      // association with the user
+      this.belongsTo(User, { targetKey: "userId", foreignKey: {
+        allowNull: false,
+        name: "userId"
+      } })
+
+      // association with the post
+      this.belongsTo(Post, { targetKey: "id", foreignKey: {
+        allowNull: false,
+        name: "postId"
+      } })
+
+      // association with the comment
+      this.belongsTo(Comment, { targetKey: "id", foreignKey: {
+        allowNull: false,
+        name: "postId"
+      } })
     }
   };
   Like.init({
@@ -38,6 +61,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
     sequelize,
     paranoid: true,
     modelName: 'Like',
+    deletedAt: 'deletedTime'
   });
   return Like;
 };
+
+export interface LikeInput extends LikeAttributes {
+  commentId?: number
+}
+export interface LikeOutput extends Required<LikeAttributes> {}
