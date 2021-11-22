@@ -14,6 +14,9 @@ module.exports = {
       postId: {
         type: DataTypes.INTEGER
       },
+      commentId: {
+        type: DataTypes.INTEGER
+      },
       deletedAt: {
         allowNull: false,
         type: DataTypes.DATE

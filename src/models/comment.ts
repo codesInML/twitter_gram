@@ -37,8 +37,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
       // association with the like
       this.hasMany(Like, { sourceKey: "id", foreignKey: {
-        allowNull: false,
-        name: "postId"
+        allowNull: true,
+        name: "commentId"
       } })
 
       // association with the user

@@ -18,9 +18,9 @@ export const findAllUserPosts = async (userId: string): Promise<PostOutput []> =
 }
 
 export const findAllPosts = async (userId: string) => {
-    const user = await findOne(userId)
+    const follower = await findOne(userId)
     
-    return await user.getUser({
+    return await follower.getUser({
         attributes: [],
         joinTableAttributes: [],
         include: [{

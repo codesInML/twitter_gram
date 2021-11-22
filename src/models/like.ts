@@ -6,6 +6,7 @@ import {
 interface LikeAttributes {
   userId: string
   postId?: number
+  commentId?: number
   createdAt?: Date
   updatedAt?: Date
   deletedAt?: Date
@@ -37,14 +38,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
       // association with the post
       this.belongsTo(Post, { targetKey: "id", foreignKey: {
-        allowNull: false,
+        allowNull: true,
         name: "postId"
       } })
 
       // association with the comment
       this.belongsTo(Comment, { targetKey: "id", foreignKey: {
-        allowNull: false,
-        name: "postId"
+        allowNull: true,
+        name: "commentId"
       } })
     }
   };
@@ -54,14 +55,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
       allowNull: false
     },
     postId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
+    },
+    commentId: {
+      type: DataTypes.INTEGER
     },
   }, {
     sequelize,
     paranoid: true,
-    modelName: 'Like',
-    deletedAt: 'deletedTime'
+    modelName: 'Like'
   });
   return Like;
 };
