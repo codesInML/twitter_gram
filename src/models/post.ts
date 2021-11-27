@@ -26,7 +26,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     static associate(models: any) {
       // define association here
 
-      const {User, Comment, Like} = models
+      const {User, Comment, Love} = models
 
       // association with the user
       this.belongsTo(User, { targetKey: "userId", foreignKey: {
@@ -41,7 +41,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       } })
 
       // association with the likes
-      this.hasMany(Like, { sourceKey: "id", foreignKey: {
+      this.hasMany(Love, { as: "PostLikes", sourceKey: "id", foreignKey: {
         allowNull: true,
         name: "postId"
       } })

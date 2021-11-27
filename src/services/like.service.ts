@@ -1,4 +1,4 @@
-import { LikeInput, LikeOutput } from "../models/like";
+import { LikeInput, LikeOutput } from "../models/love";
 import * as LikeDAL from "../DAL/like.dal"
 
 export const like = async (payload: LikeInput): Promise<LikeOutput | string> => {

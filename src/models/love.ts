@@ -13,13 +13,12 @@ interface LikeAttributes {
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Like extends Model<LikeAttributes> implements LikeAttributes {
+  class Love extends Model<LikeAttributes> implements LikeAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-
     userId!: string
 
     static associate(models: any) {
@@ -49,7 +48,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       } })
     }
   };
-  Like.init({
+  Love.init({
     userId: {
       type: DataTypes.STRING,
       allowNull: false
@@ -62,10 +61,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
   }, {
     sequelize,
-    paranoid: true,
-    modelName: 'Like'
+    modelName: 'Love',
   });
-  return Like;
+  return Love;
 };
 
 export interface LikeInput extends LikeAttributes {

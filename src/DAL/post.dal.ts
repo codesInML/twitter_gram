@@ -5,7 +5,7 @@ import { BadRequestError, ForbiddenError } from "../errors"
 import { deleteImage } from "../utils/delete-image-utils"
 import { NextFunction } from "express"
 
-const {Post} = models
+const {Post, Comment, Love} = models
 
 export const create = async (payload: PostInput): Promise<PostOutput> => {
     const user = await findOne(payload.userId)
@@ -24,7 +24,22 @@ export const findAllPosts = async (userId: string) => {
         attributes: [],
         joinTableAttributes: [],
         include: [{
-            model: Post
+            model: Post,
+            include: [
+            {
+                model: Love,
+                as: "PostLikes",
+                attributes: ['userId']
+            },
+            { 
+                model: Comment,
+                include: [{
+                    model: Love,
+                    as: "CommentLikes",
+                    attributes: ['userId']
+                }]
+            },
+            ],
         }]
     })
 }
