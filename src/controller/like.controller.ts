@@ -13,11 +13,7 @@ export const likeToggleHandler = async (req: Request, res: Response) => {
 
     if (postId && commentId) throw new BadRequestError("either post or comment id must be provided, not both")
 
-    const [liked, msg] = await likeToggle({userId, postId, commentId})
+    const [_, msg] = await likeToggle({userId, postId, commentId})
     
-    return res.status(StatusCodes.CREATED).json({status: "success", msg, liked})
-}
-
-export const unlikeHandler = async (req: Request, res: Response) => {
-    return res.status(StatusCodes.OK).json({status: "success", msg: "like removed"})
+    return res.status(StatusCodes.CREATED).json({status: "success", msg})
 }
