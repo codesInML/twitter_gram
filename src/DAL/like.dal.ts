@@ -1,24 +1,28 @@
 import { LikeInput, LikeOutput } from "../models/love";
 import models from "../models"
 
-const { Post, Comment } = models
+const { Post, Comment, Love } = models
 
-export const createPostLike = async (payload: LikeInput): Promise<LikeOutput | string> => {
+export const togglePostLike = async (payload: LikeInput): Promise<[LikeOutput, string]> => {
     const post = await Post.findOne({ where: { id: payload.postId } })
     // check if the user has previously liked the post
-    const hasLiked = await post.getPostLikes({ where: { userId: payload.userId } })
+    const liked = await Love.findOne({ where: { userId: payload.userId, commentId: null } })
 
-    if (hasLiked.length == 1) return "you already liked this post"
+    const hasLiked = await post.hasPostLikes(liked)
 
-    return await post.createPostLike(payload)
+    if (hasLiked) return [await liked.destroy(), "like removed"]
+
+    return [await post.createPostLike(payload), "like added"]
 }
 
-export const createCommentLike = async (payload: LikeInput) => {
+export const toggleCommentLike = async (payload: LikeInput): Promise<[LikeOutput, string]> => {
     const comment = await Comment.findOne({ where: { id: payload.commentId } })
     // check if the user has previously liked the comment
-    const hasLiked = await comment.getCommentLikes({ where: { userId: payload.userId } })
+    const liked = await Love.findOne({ where: { userId: payload.userId, postId: null } })
 
-    if (hasLiked.length == 1) return "you already liked this post"
+    const hasLiked = await comment.hasCommentLikes(liked)
+
+    if (hasLiked) return [await liked.destroy(), "like removed"]
     
-    return await comment.createCommentLike(payload)
+    return [await comment.createCommentLike(payload), "like added"]
 }
