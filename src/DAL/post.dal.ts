@@ -14,7 +14,23 @@ export const create = async (payload: PostInput): Promise<PostOutput> => {
 
 export const findAllUserPosts = async (userId: string): Promise<PostOutput []> => {
     const user = await findOne(userId)
-    return await user.getPosts()
+    return await user.getPosts({
+        include: [
+        {
+            model: Love,
+            as: "PostLikes",
+            attributes: ['userId']
+        },
+        { 
+            model: Comment,
+            include: [{
+                model: Love,
+                as: "CommentLikes",
+                attributes: ['userId']
+            }]
+        },
+        ],
+    })
 }
 
 export const findAllPosts = async (userId: string) => {
