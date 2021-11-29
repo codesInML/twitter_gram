@@ -1,15 +1,13 @@
 import express, { Router } from 'express'
-import { createReplyHandler } from '../controller/reply.controller'
+import { addReplyHandler } from '../controller/reply.controller'
 import validate from '../middleware/validate-resource'
 import { createReplySchema } from '../schema/reply.schema'
 
 const router: Router = express.Router()
 
 router.route("/")
-    .post(validate(createReplySchema), createReplyHandler)
+    .post(validate(createReplySchema), addReplyHandler)
 
-router.route("/:replyId")
-    .patch()
-    .delete()
+// since the replies are also comment, we can update and delete them using the comment update and delete routes 
 
 export default router

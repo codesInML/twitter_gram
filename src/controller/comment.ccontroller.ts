@@ -25,7 +25,6 @@ export const editCommentHandler = async (req: Request, res: Response, next: Next
     if (post.userId !== userId) throw new ForbiddenError("You cannot edit this comment")
 
     const payload = await postUpload(req, res)
-    console.log(payload)
     
     // check if image was given and the post was not initially empty
     if (payload.img_url && post.img_url !== null) {
