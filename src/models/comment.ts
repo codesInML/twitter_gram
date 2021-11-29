@@ -6,6 +6,7 @@ import {
 interface CommentAttributes {
   userId: string
   postId?: number
+  commentId?: number
   text?: string
   img_url?: string
   id?: number
@@ -50,7 +51,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       // association with the replies
       this.hasMany(Comment, {as: "Reply", sourceKey: "id", foreignKey: {
         allowNull: false,
-        name: "postId"
+        name: "commentId"
       }})
     }
   };
@@ -68,7 +69,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     postId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      defaultValue: 0
+    },
+    commentId: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   }, {
     sequelize,

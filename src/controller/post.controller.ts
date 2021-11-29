@@ -30,6 +30,15 @@ export const getAllPostHandler = async (req: Request, res: Response) => {
     return res.status(StatusCodes.OK).json({status: "success", posts})
 }
 
+// get a post
+export const getPostHandler = async (req: Request, res: Response) => {
+    const postId = req.params.postId as unknown as number
+    
+    const post = await getPost(postId)
+
+    return res.status(StatusCodes.OK).json({status: "success", post})
+}
+
 // update user's post
 export const updateUserPostHandler = async (req: Request, res: Response, next: NextFunction) => {
     const postId = req.params.postId as unknown as number

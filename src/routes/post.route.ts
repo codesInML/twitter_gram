@@ -1,5 +1,5 @@
 import express, {Router} from 'express'
-import { createPostHandler, deleteUserPostHandler, getAllPostHandler, getAllUserPostHandler, updateUserPostHandler } from '../controller/post.controller'
+import { createPostHandler, deleteUserPostHandler, getAllPostHandler, getAllUserPostHandler, getPostHandler, updateUserPostHandler } from '../controller/post.controller'
 
 const router: Router = express.Router()
 
@@ -12,6 +12,7 @@ router.route("/user")
 
 router.route("/:postId")
     .patch(updateUserPostHandler)
+    .get(getPostHandler)
     .delete(deleteUserPostHandler)
 
 export default router

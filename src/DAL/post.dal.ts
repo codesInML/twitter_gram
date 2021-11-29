@@ -48,12 +48,7 @@ export const findAllPosts = async (userId: string) => {
                 attributes: ['userId']
             },
             { 
-                model: Comment,
-                include: [{
-                    model: Love,
-                    as: "CommentLikes",
-                    attributes: ['userId']
-                }]
+                model: Comment
             },
             ],
         }]
@@ -61,7 +56,35 @@ export const findAllPosts = async (userId: string) => {
 }
 
 export const findPost = async (postId: number): Promise<PostOutput> => {
-    const post = await Post.findOne({ where: {id: postId} })
+    const post = await Post.findOne({
+        where: {id: postId},
+        include: [
+            {
+                model: Love,
+                as: "PostLikes",
+                attributes: ['userId']
+            },
+            { 
+                model: Comment,
+                include: [
+                    {
+                        model: Love,
+                        as: "CommentLikes",
+                        attributes: ['userId']
+                    },
+                    {
+                        model: Comment,
+                        as: "Reply",
+                        include: [{
+                            model: Love,
+                            as: "CommentLikes",
+                            attributes: ['userId']
+                        }]
+                    }
+            ]
+            },
+            ],
+    })
 
     if (!post) throw new BadRequestError(`no post with the id ${postId}`)
 
