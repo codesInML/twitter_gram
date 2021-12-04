@@ -5,7 +5,7 @@ import path from "path"
 import { postFilter } from "../utils/image-utils"
 const maxSize = 2 * 1024 * 1024
 
-const nanoid = customAlphabet("abcdefghijjlmnopqrstuvwxyz", 10)
+export const nanoid = customAlphabet("abcdefghijjlmnopqrstuvwxyz", 10)
 
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {

@@ -6,6 +6,7 @@ import followRoute from './follow.route'
 import commentRoute from './comment.route'
 import likeRoute from './like.route'
 import replyRoute from './reply.route'
+import retweetRoute from './retweet.route'
 import requireUser from '../middleware/require-user'
 
 const router: Router = express.Router()
@@ -18,5 +19,6 @@ router.use("/comments", commentRoute)
 router.use("/replies", replyRoute)
 router.use("/follow", followRoute)
 router.use("/likes", likeRoute)
+router.use("/retweet", retweetRoute)
 
 export default router

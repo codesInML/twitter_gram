@@ -58,7 +58,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     img_url: {
       type: DataTypes.STRING
     },
-    caption: DataTypes.STRING,
+    caption: {
+      type: DataTypes.STRING
+    },
     isARetweet: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -82,4 +84,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
 };
 
 export interface PostInput extends  PostAttributes {}
-export interface PostOutput extends Required<PostAttributes> {}
+export interface PostOutput extends Required<PostAttributes> {
+  id?: number
+}
