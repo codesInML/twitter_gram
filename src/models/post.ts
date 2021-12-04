@@ -7,6 +7,9 @@ interface PostAttributes {
   userId: string
   img_url?: string
   caption?: string
+  isARetweet?: boolean
+  retweetedId?: number
+  numberOfRetweets?: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -55,7 +58,22 @@ module.exports = (sequelize: any, DataTypes: any) => {
     img_url: {
       type: DataTypes.STRING
     },
-    caption: DataTypes.STRING
+    caption: DataTypes.STRING,
+    isARetweet: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
+    },
+    retweetedId: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    },
+    numberOfRetweets: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'Post',
