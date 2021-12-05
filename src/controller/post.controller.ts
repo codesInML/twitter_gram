@@ -4,6 +4,7 @@ import { ForbiddenError } from "../errors"
 import { postUpload } from "../utils/image-upload-utils"
 import { createPost, deletePost, getPost, getPosts, getUserPosts, updatePost } from "../services/post.service"
 import { deleteImage } from "../utils/delete-image-utils"
+import { getFile } from "../middleware/aws-s3"
 
 // create the post
 export const createPostHandler = async (req: Request, res: Response, next: NextFunction) => {
@@ -71,4 +72,12 @@ export const deleteUserPostHandler = async (req: Request, res: Response, next: N
     await deletePost(postId as any as number, userId, next)
     
     return res.status(StatusCodes.OK).json({status: "success", msg: "post has been deleted"})
+}
+
+// get the image
+export const getImage = (req: Request, res: Response) => {
+    const key = req.params.key
+    const readStream = getFile(key)
+
+    readStream.pipe(res)
 }
