@@ -1,12 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { BadRequestError } from "../errors";
 import uploadFileMiddleware from "../middleware/upload";
+import { uploadFile } from  "../middleware/aws-s3"
+import { deleteImage } from "./delete-image-utils";
 
-export const postUpload = async (req: Request, res: Response) => {
+export const postUpload = async (req: Request, res: Response, next: NextFunction) => {
     const directoryPath = __basedir + "/resources/static/assets/uploads/";
     await uploadFileMiddleware(req, res)
     const {caption, text, postId} = req.body
     const {commentId} = req.params
+    const file = req.file
     const fileName = req.file?.filename
 
     const payload: {
@@ -29,8 +32,11 @@ export const postUpload = async (req: Request, res: Response) => {
 
     if (commentId) payload.commentId = commentId as any as number
 
-    if (fileName) {
+    if (file) {
         payload.img_url = directoryPath + fileName
+        const result = await uploadFile(file)
+        console.log(result)
+        await deleteImage(file.path, next)
     }
     
     return payload

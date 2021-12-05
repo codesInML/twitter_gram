@@ -6,8 +6,8 @@ import { createPost, deletePost, getPost, getPosts, getUserPosts, updatePost } f
 import { deleteImage } from "../utils/delete-image-utils"
 
 // create the post
-export const createPostHandler = async (req: Request, res: Response) => {
-    const payload = await postUpload(req, res)
+export const createPostHandler = async (req: Request, res: Response, next: NextFunction) => {
+    const payload = await postUpload(req, res, next)
     
     const {userId} = res.locals.user
 
@@ -50,13 +50,13 @@ export const updateUserPostHandler = async (req: Request, res: Response, next: N
     // check if the user own the post
     if (post.userId !== userId) throw new ForbiddenError("You cannot update this post")
     
-    const payload = await postUpload(req, res)
+    const payload = await postUpload(req, res, next)
     
     // check if image was given and the post was not initially empty
-    if (payload.img_url && post.img_url !== null) {
-        // if image was given and post previouly had an image, then delete the image
-        deleteImage(post.img_url, next)
-    }
+    // if (payload.img_url && post.img_url !== null) {
+    //     // if image was given and post previouly had an image, then delete the image
+    //     deleteImage(post.img_url, next)
+    // }
 
     const updatedPost = await updatePost(postId, payload)
 

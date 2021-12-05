@@ -11,6 +11,7 @@
   "author": "Ifeoluwa Olubo",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.1043.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dayjs": "^1.10.7",
