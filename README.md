@@ -34,9 +34,12 @@ If you're impressed then Star⭐ the repo and enjoy😉.
 - [x] Unfollow
 - [x] Create post
 - [x] Delete post
+- [x] Get user's feed
+- [x] Get user's post
 - [x] Edit post
 - [x] Like/Unlike post
 - [x] Comment on post
+- [x] Delete comment
 - [x] Like/Unlike Comment
 - [x] Edit Comment
 - [x] Reply on Comment
@@ -45,12 +48,8 @@ If you're impressed then Star⭐ the repo and enjoy😉.
 
 ### 📮Making requests
 
-Always attach the token on the request header
+I've made the documentation to be quite explanatory and easy to use, [click here](https://documenter.getpostman.com/view/11680593/TzXtJfzY) for more information on how to use. More features like a chat system would be added subsequently.
 
 ## 🤓 Author(s)
 
 **Olubo Ifeoluwa** [![Twitter Follow](https://img.shields.io/twitter/follow/IfeoluwaOlubo?style=social)](https://twitter.com/IfeoluwaOlubo)
-
-## 🔖 LICENCE
-
-[WTFPL](http://www.wtfpl.net/about/)

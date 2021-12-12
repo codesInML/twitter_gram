@@ -34,8 +34,7 @@ export const postUpload = async (req: Request, res: Response, next: NextFunction
 
     if (file) {
         payload.img_url = directoryPath + fileName
-        const result = await uploadFile(file)
-        console.log(result)
+        await uploadFile(file)
         await deleteImage(file.path, next)
     }
     

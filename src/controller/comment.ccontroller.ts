@@ -2,7 +2,6 @@ import {NextFunction, Request, Response} from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { ForbiddenError } from '../errors'
 import { createComment, deleteComment, getComment, updateComment } from '../services/comment.service'
-import { deleteImage } from '../utils/delete-image-utils'
 import { postUpload } from '../utils/image-upload-utils'
 
 export const addCommentHandler = async (req: Request, res: Response, next: NextFunction) => {
@@ -20,17 +19,12 @@ export const editCommentHandler = async (req: Request, res: Response, next: Next
     const commentId = req.params.commentId as any as number
 
     const post = await getComment(commentId)
+    console.log(post)
 
     // check if the user own the post
     if (post.userId !== userId) throw new ForbiddenError("You cannot edit this comment")
 
     const payload = await postUpload(req, res, next)
-    
-    // check if image was given and the post was not initially empty
-    // if (payload.img_url && post.img_url !== null) {
-    //     // if image was given and post previouly had an image, then delete the image
-    //     deleteImage(post.img_url, next)
-    // }
 
     const comment = await updateComment({ userId, ...payload })
 

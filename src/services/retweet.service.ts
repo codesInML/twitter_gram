@@ -8,7 +8,6 @@ import { NextFunction } from "express";
 
 export const createRetweet = async (userId: string, postId: number, next: NextFunction): Promise<PostOutput> => {
     const post = await RetweetDAL.findById(postId)
-    console.log(post)
     
     if (post.dataValues.userId == userId) throw new BadRequestError("You cannot retweet your post")
 
