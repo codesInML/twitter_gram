@@ -1,10 +1,10 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { createReply } from '../services/reply.service'
 import { postUpload } from '../utils/image-upload-utils'
 
-export const addReplyHandler = async (req: Request, res: Response) => {
-    const payload = await postUpload(req, res)
+export const addReplyHandler = async (req: Request, res: Response, next: NextFunction) => {
+    const payload = await postUpload(req, res, next)
     
     const {userId} = res.locals.user
 

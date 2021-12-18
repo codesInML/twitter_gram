@@ -13,7 +13,7 @@ import 'express-async-errors'
 import db from './src/models'
 
 // initialize the express app
-import express, {Application} from 'express'
+import express, {Application, Request, Response} from 'express'
 const app : Application = express()
 
 // logger
@@ -42,6 +42,11 @@ app.use(rateLimit({ windowMs: 60 * 1000, max: 60 }))
 
 // deserialize user
 app.use(deserializeUser)
+
+// documentation route
+app.get('/', (req: Request, res: Response) => {
+    res.send("<h1>Welcome to the twitter gram documentation</h1>")
+})
 
 // app routes
 app.use('/api/v1', Routes)

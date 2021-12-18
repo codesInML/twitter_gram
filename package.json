@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && npm run start",
+    "start": "node build/app.js",
+    "postinstall": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only app.ts | pino-pretty -c -t"
   },
   "keywords": [],
@@ -53,5 +55,8 @@
     "sequelize-cli": "^6.3.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.4"
+  },
+  "engines": {
+    "node": "15.x"
   }
 }
