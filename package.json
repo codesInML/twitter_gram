@@ -1,11 +1,11 @@
 {
   "name": "twitter_gram",
   "version": "1.0.0",
-  "description": "",
+  "description": "A mock twitter api which posseses most of the core features of twitter.",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "start": "node build/app.js",
-    "postinstall": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only app.ts | pino-pretty -c -t"
   },
   "keywords": [],
