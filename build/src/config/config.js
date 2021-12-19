@@ -1,8 +1,8 @@
 "use strict";
 module.exports = {
     "development": {
-        "username": "",
-        "password": "",
+        "username": "root",
+        "password": "neweins26",
         "database": "social_app",
         "host": "127.0.0.1",
         "dialect": "mysql"
@@ -15,12 +15,6 @@ module.exports = {
         "dialect": "mysql"
     },
     "production": {
-        "use_env_variable": "DATABASE_URL",
-        "dialectOptions": {
-            "ssl": {
-            "require": true, // This will help you. But you will see nwe error
-            "rejectUnauthorized": false // This line will fix new error
-            }
-        },
+        "use_env_variable": "DATABASE_URL"
     }
 };

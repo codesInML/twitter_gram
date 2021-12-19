@@ -48,7 +48,9 @@ If you're impressed then Star⭐ the repo and enjoy😉.
 
 ### 📮Making requests
 
-I've made the documentation to be quite explanatory and easy to use, [click here](https://documenter.getpostman.com/view/11680593/TzXtJfzY) for more information on how to use. More features like a chat system would be added subsequently.
+remember to change ts to js in models/index.js after you have transpiled.
+
+I've made the documentation to be quite explanatory and easy to use, [click here](https://twitter-gram-api.herokuapp.com/) for more information on how to use. More features like a chat system would be added subsequently.
 
 ## 🤓 Author(s)
 
