@@ -1,13 +1,7 @@
-// require('dotenv').config()
-
-// const password = process.env.DB_PASSWORD as string
-// const username = process.env.DB_USERNAME as string
-// const db_name = process.env.DB_NAME as string
-
 module.exports = {
   "development": {
-    "username": "root",
-    "password": "neweins26",
+    "username": "",
+    "password": "",
     "database": "social_app",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -20,10 +14,6 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "use_env_variable": "DATABASE_URL"
   }
 }
