@@ -21,6 +21,10 @@ const PORT = process.env.PORT;
 require("express-async-errors");
 // bring in the database connection
 const models_1 = __importDefault(require("./src/models"));
+// swagger
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const yamljs_1 = __importDefault(require("yamljs"));
+const swaggerDocument = yamljs_1.default.load('./swagger.yaml');
 // initialize the express app
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
@@ -48,8 +52,9 @@ app.use((0, express_rate_limit_1.default)({ windowMs: 60 * 1000, max: 60 }));
 app.use(deserialize_user_1.default);
 // documentation route
 app.get('/', (req, res) => {
-    res.send("<h1>Welcome to the twitter gram documentation</h1>");
+    res.send('<h1>Welcome to the twitter gram documentation</h1><p>click <a href="/api-docs">here</a> to visit the docs</p>');
 });
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocument));
 // app routes
 app.use('/api/v1', routes_1.default);
 // not found middleware

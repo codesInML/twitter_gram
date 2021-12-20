@@ -12,6 +12,11 @@ import 'express-async-errors'
 // bring in the database connection
 import db from './src/models'
 
+// swagger
+import swaggerUI from 'swagger-ui-express'
+import YAML from 'yamljs'
+const swaggerDocument = YAML.load('./swagger.yaml')
+
 // initialize the express app
 import express, {Application, Request, Response} from 'express'
 const app : Application = express()
@@ -45,8 +50,10 @@ app.use(deserializeUser)
 
 // documentation route
 app.get('/', (req: Request, res: Response) => {
-    res.send("<h1>Welcome to the twitter gram documentation</h1>")
+    res.send('<h1>Welcome to the twitter gram documentation</h1><p>click <a href="/api-docs">here</a> to visit the docs</p>')
 })
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 // app routes
 app.use('/api/v1', Routes)
