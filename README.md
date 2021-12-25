@@ -19,7 +19,6 @@ If you're impressed then Star⭐ the repo and enjoy😉.
 - NodeJS
 - ExpressJS
 - TypeScript
-- Mysql
 - Sequelize ORM
 - aws-s3
 
