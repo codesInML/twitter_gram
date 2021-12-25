@@ -3,25 +3,25 @@ info:
   title: twitterGram
   description: A social media API influenced greatly by twitter, built with node, typescript, express, sequelize and a lot more.
   contact: {}
-  version: '1.0'
+  version: "1.0"
 servers:
-- url: https://twitter-gram-api.herokuapp.com/api/v1
-  variables: {}
+  - url: https://twitter-gram-api.herokuapp.com/api/v1
+    variables: {}
 paths:
   /users:
     post:
       tags:
-      - Auth
+        - Auth
       summary: create user
       description: This is the route to register a user unto the app.
       operationId: createuser
       parameters: []
       requestBody:
-        description: ''
+        description: ""
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createuserrequest'
+              $ref: "#/components/schemas/createuserrequest"
             example:
               firstName: Emmanuella
               lastName: Olubo
@@ -29,149 +29,149 @@ paths:
               password: someSecret
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
   /sessions:
     post:
       tags:
-      - Auth
+        - Auth
       summary: create session
       description: This endpoint returns a session with contains the access token and refresh token. The api expects an "x-refresh" header which must be set to the refresh token that was sent.
       operationId: createsession
       parameters: []
       requestBody:
-        description: ''
+        description: ""
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createsessionrequest'
+              $ref: "#/components/schemas/createsessionrequest"
             example:
               email: ellaolubo@gmail.com
               password: someSecret
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
     get:
       tags:
-      - Auth
+        - Auth
       summary: get sessions
       description: This route gets all the valid sessions that a user has.
       operationId: getsessions
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
     delete:
       tags:
-      - Auth
+        - Auth
       summary: delete session
       description: This route deletes all the valid sessions that a user has. Use this route to log out a user.
       operationId: deletesession
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
       security: []
   /posts:
     post:
       tags:
-      - Post
+        - Post
       summary: create post
       description: You can create post with this route
       operationId: createpost
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       requestBody:
         content:
-          application/x-www-form-urlencoded:
-            encoding: {}
+          multipart/form-data:
             schema:
-              required:
-              - file
               type: object
               properties:
+                caption:
+                  type: string
                 file:
                   type: string
+                  format: binary
         required: false
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
     get:
       tags:
-      - Post
+        - Post
       summary: get feeds
       description: This gets the post of those the user follows. user must follow other's to see their posts
       operationId: getfeeds
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /posts/user:
     get:
       tags:
-      - Post
+        - Post
       summary: get all user's post
       description: This route returns all of the user's posts
       operationId: getalluser'spost
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /posts/{postId}:
@@ -184,27 +184,27 @@ paths:
         description: The post ID
     get:
       tags:
-      - Post
+        - Post
       summary: get a post
       description: Returns a particular post given the post id as params
       operationId: getapost
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
     delete:
       tags:
-      - Post
+        - Post
       summary: delete post
       description: >-
         Use this route to delete posts given the post id as params
@@ -213,22 +213,22 @@ paths:
         NB: Only the owner of the post can delete the post
       operationId: deletepost
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
     patch:
       tags:
-      - Post
+        - Post
       summary: update post
       description: >-
         This route is used to update user's post, it requires the post id and the new post content.
@@ -236,171 +236,160 @@ paths:
         NB: Only the owner of the post can update the post
       operationId: updatepost
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
-      - name: postId
-        in: path
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
+        - name: postId
+          in: path
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
       requestBody:
         content:
           application/x-www-form-urlencoded:
             encoding: {}
             schema:
               required:
-              - file
+                - file
               type: object
               properties:
                 file:
                   type: string
         required: false
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /follow:
     post:
       tags:
-      - Follow
+        - Follow
       summary: follow user
       description: This route is used to follow other users. The id of the user to follow is sent through the request body.
       operationId: followuser
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       requestBody:
-        description: ''
+        description: ""
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/followuserrequest'
+              $ref: "#/components/schemas/followuserrequest"
             example:
               followedId: 385395ee-5749-49c7-9338-03d889bf8061
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
     delete:
       tags:
-      - Follow
+        - Follow
       summary: unfollow user
       description: Like the follow user route, this route requires the id of the user to be unfollowed in the request body.
       operationId: unfollowuser
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
     get:
       tags:
-      - Follow
+        - Follow
       summary: get all followers
       description: You can get all of a user's followers with this route.
       operationId: getallfollowers
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /follow/following:
     get:
       tags:
-      - Follow
+        - Follow
       summary: get all following
       description: This route returns all the users a particular user follows
       operationId: getallfollowing
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /comments:
     post:
       tags:
-      - Comment
+        - Comment
       summary: create comment
       description: This route is used to comment on a particular post
       operationId: createcomment
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       requestBody:
-        description: ''
         content:
-          text/plain:
+          multipart/form-data:
             schema:
-              type: string
-              example: >-
-                {
-
-                    "text": "This is just another comment",
-
-                    "postId": {{postId}}
-
-                }
-            example: >-
-              {
-
-                  "text": "This is just another comment",
-
-                  "postId": {{postId}}
-
-              }
+              type: object
+              properties:
+                text:
+                  type: string
+                file:
+                  type: string
+                  format: binary
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /comments/{commentId}:
@@ -413,7 +402,7 @@ paths:
         description: The post ID
     patch:
       tags:
-      - Comment
+        - Comment
       summary: edit comment
       description: >-
         User's comments are updated with this route.
@@ -421,56 +410,56 @@ paths:
         Again, only the user that created the comment can update it.
       operationId: editcomment
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       requestBody:
         content:
           application/x-www-form-urlencoded:
             encoding: {}
             schema:
               required:
-              - file
+                - file
               type: object
               properties:
                 file:
                   type: string
         required: false
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
-  
+
     delete:
       tags:
-      - Comment
+        - Comment
       summary: delete comment
       description: This route is used to delete a comment.
       operationId: deletecomment
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /likes:
     get:
       tags:
-      - Like
+        - Like
       summary: toggle like on post or comment
       description: >-
         This route can be used to like either a post or a comment given the post or comment id as a query params.
@@ -479,33 +468,33 @@ paths:
         You can also hit this endpoint to unlike a post or comment
       operationId: togglelikeonpostorcomment
       parameters:
-      - name: commentId
-        in: query
-        description: ''
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: integer
-          format: int32
-          example: 7
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: commentId
+          in: query
+          description: ""
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 7
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /replies:
     post:
       tags:
-      - Reply
+        - Reply
       summary: create reply
       description: >-
         This route is used to make replies to either a post or a comment, given the postId or commentId as request sent by the body.
@@ -514,16 +503,16 @@ paths:
         Under the hood, a reply is also a comment, so you can use the comment route to update and delete the replies.
       operationId: createreply
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       requestBody:
-        description: ''
+        description: ""
         content:
           text/plain:
             schema:
@@ -546,56 +535,56 @@ paths:
               }
         required: true
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /retweet/{postId}:
     post:
       tags:
-      - Retweet
+        - Retweet
       summary: create retweet
       description: Just like the normal retweet on the twitter app, this route is used to make retweets on posts. The post id to be retweeted is sent as a param in the request.
       operationId: createretweet
       parameters:
-      - in: path
-        name: postId
-        schema:
-          type: integer
-        required: true
-        description: Numeric ID of the post to retweet
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - in: path
+          name: postId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the post to retweet
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
   /posts/image/post_ouxrycvpzy1638738116213.jpg:
     get:
       tags:
-      - Image
+        - Image
       summary: get image
       description: Get an image
       operationId: getimage
       parameters:
-      - name: x-refresh
-        in: header
-        description: ''
-        required: true
-        style: simple
-        schema:
-          type: string
-          example: '{{refreshToken}}'
+        - name: x-refresh
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: "{{refreshToken}}"
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           headers: {}
       deprecated: false
 components:
@@ -603,10 +592,10 @@ components:
     createuserrequest:
       title: createuserrequest
       required:
-      - firstName
-      - lastName
-      - email
-      - password
+        - firstName
+        - lastName
+        - email
+        - password
       type: object
       properties:
         firstName:
@@ -625,8 +614,8 @@ components:
     createsessionrequest:
       title: createsessionrequest
       required:
-      - email
-      - password
+        - email
+        - password
       type: object
       properties:
         email:
@@ -639,7 +628,7 @@ components:
     followuserrequest:
       title: followuserrequest
       required:
-      - followedId
+        - followedId
       type: object
       properties:
         followedId:
@@ -649,7 +638,7 @@ components:
     unfollowuserrequest:
       title: unfollowuserrequest
       required:
-      - followedId
+        - followedId
       type: object
       properties:
         followedId:
@@ -661,13 +650,13 @@ components:
       type: http
       scheme: bearer
 security:
-- httpBearer: []
+  - httpBearer: []
 tags:
-- name: Auth
-- name: Post
-- name: Follow
-- name: Comment
-- name: Like
-- name: Reply
-- name: Retweet
-- name: Image
+  - name: Auth
+  - name: Post
+  - name: Follow
+  - name: Comment
+  - name: Like
+  - name: Reply
+  - name: Retweet
+  - name: Image

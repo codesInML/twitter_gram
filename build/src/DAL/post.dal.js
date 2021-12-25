@@ -16,7 +16,6 @@ exports.deletepost = exports.update = exports.findPost = exports.findAllPosts = 
 const user_dal_1 = require("./user.dal");
 const models_1 = __importDefault(require("../models"));
 const errors_1 = require("../errors");
-const delete_image_utils_1 = require("../utils/delete-image-utils");
 const { Post, Comment, Love } = models_1.default;
 const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield (0, user_dal_1.findOne)(payload.userId);
@@ -30,15 +29,17 @@ const findAllUserPosts = (userId) => __awaiter(void 0, void 0, void 0, function*
             {
                 model: Love,
                 as: "PostLikes",
-                attributes: ['userId']
+                attributes: ["userId"],
             },
             {
                 model: Comment,
-                include: [{
+                include: [
+                    {
                         model: Love,
                         as: "CommentLikes",
-                        attributes: ['userId']
-                    }]
+                        attributes: ["userId"],
+                    },
+                ],
             },
         ],
     });
@@ -49,19 +50,21 @@ const findAllPosts = (userId) => __awaiter(void 0, void 0, void 0, function* () 
     return yield follower.getUser({
         attributes: [],
         joinTableAttributes: [],
-        include: [{
+        include: [
+            {
                 model: Post,
                 include: [
                     {
                         model: Love,
                         as: "PostLikes",
-                        attributes: ['userId']
+                        attributes: ["userId"],
                     },
                     {
-                        model: Comment
+                        model: Comment,
                     },
                 ],
-            }]
+            },
+        ],
     });
 });
 exports.findAllPosts = findAllPosts;
@@ -72,7 +75,7 @@ const findPost = (postId) => __awaiter(void 0, void 0, void 0, function* () {
             {
                 model: Love,
                 as: "PostLikes",
-                attributes: ['userId']
+                attributes: ["userId"],
             },
             {
                 model: Comment,
@@ -80,18 +83,20 @@ const findPost = (postId) => __awaiter(void 0, void 0, void 0, function* () {
                     {
                         model: Love,
                         as: "CommentLikes",
-                        attributes: ['userId']
+                        attributes: ["userId"],
                     },
                     {
                         model: Comment,
                         as: "Reply",
-                        include: [{
+                        include: [
+                            {
                                 model: Love,
                                 as: "CommentLikes",
-                                attributes: ['userId']
-                            }]
-                    }
-                ]
+                                attributes: ["userId"],
+                            },
+                        ],
+                    },
+                ],
             },
         ],
     });
@@ -105,14 +110,11 @@ const update = (postId, payload) => __awaiter(void 0, void 0, void 0, function* 
     return yield post.update(payload);
 });
 exports.update = update;
-const deletepost = (postId, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
+const deletepost = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const post = yield Post.findOne({ where: { id: postId } });
     // check if the user own the post
     if (post.userId !== userId)
         throw new errors_1.ForbiddenError("You cannot delete this post");
-    // delete the image
-    if (post.img_url !== null)
-        (0, delete_image_utils_1.deleteImage)(post.img_url, next);
     yield post.destroy();
 });
 exports.deletepost = deletepost;

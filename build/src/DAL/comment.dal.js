@@ -15,11 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.destroy = exports.update = exports.find = exports.create = void 0;
 const models_1 = __importDefault(require("../models"));
 const errors_1 = require("../errors");
-const delete_image_utils_1 = require("../utils/delete-image-utils");
 const { Post, Comment } = models_1.default;
 const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const post = yield Post.findOne({
-        where: { id: payload.postId }
+        where: { id: payload.postId },
     });
     return yield post.createComment(payload);
 });
@@ -28,19 +27,16 @@ const find = (commentId) => __awaiter(void 0, void 0, void 0, function* () {
     return yield Comment.findOne({ where: { id: commentId } });
 });
 exports.find = find;
-const update = ({ text, img_url, commentId }) => __awaiter(void 0, void 0, void 0, function* () {
+const update = ({ text, img_url, commentId, }) => __awaiter(void 0, void 0, void 0, function* () {
     const comment = yield Comment.findOne({ where: { id: commentId } });
     return yield comment.update({ text, img_url });
 });
 exports.update = update;
-const destroy = (commentId, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
+const destroy = (commentId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     const comment = yield Comment.findOne({ where: { id: commentId } });
     // check if the user own the comment
     if (comment.userId !== userId)
         throw new errors_1.ForbiddenError("You cannot delete this comment");
-    // delete the image
-    if (comment.img_url !== null)
-        (0, delete_image_utils_1.deleteImage)(comment.img_url, next);
     yield comment.destroy();
 });
 exports.destroy = destroy;

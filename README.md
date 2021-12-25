@@ -48,11 +48,11 @@ If you're impressed then Star⭐ the repo and enjoy😉.
 
 ### 📮Making requests
 
-# TODO
+<!-- # TODO
 
 - remember to change ts to js in models/index.js after you have transpiled.
 - work on the delete post route
-- work on the delete comment route
+- work on the delete comment route -->
 
 I've made the documentation to be quite explanatory and easy to use, [click here](https://twitter-gram-api.herokuapp.com/) for more information on how to use. More features like a chat system would be added subsequently.
 

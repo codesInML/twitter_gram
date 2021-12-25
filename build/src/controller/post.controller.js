@@ -20,7 +20,9 @@ const createPostHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     const payload = yield (0, image_upload_utils_1.postUpload)(req, res, next);
     const { userId } = res.locals.user;
     const post = yield (0, post_service_1.createPost)(Object.assign({ userId }, payload));
-    return res.status(http_status_codes_1.StatusCodes.CREATED).json({ status: "success", msg: "updloaded post", post });
+    return res
+        .status(http_status_codes_1.StatusCodes.CREATED)
+        .json({ status: "success", msg: "updloaded post", post });
 });
 exports.createPostHandler = createPostHandler;
 // get all post the user has created
@@ -54,15 +56,19 @@ const updateUserPostHandler = (req, res, next) => __awaiter(void 0, void 0, void
         throw new errors_1.ForbiddenError("You cannot update this post");
     const payload = yield (0, image_upload_utils_1.postUpload)(req, res, next);
     const updatedPost = yield (0, post_service_1.updatePost)(postId, payload);
-    return res.status(http_status_codes_1.StatusCodes.CREATED).json({ status: "success", post: updatedPost });
+    return res
+        .status(http_status_codes_1.StatusCodes.CREATED)
+        .json({ status: "success", post: updatedPost });
 });
 exports.updateUserPostHandler = updateUserPostHandler;
 // delete user's post
-const deleteUserPostHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteUserPostHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId } = res.locals.user;
     const { postId } = req.params;
-    yield (0, post_service_1.deletePost)(postId, userId, next);
-    return res.status(http_status_codes_1.StatusCodes.OK).json({ status: "success", msg: "post has been deleted" });
+    yield (0, post_service_1.deletePost)(postId, userId);
+    return res
+        .status(http_status_codes_1.StatusCodes.OK)
+        .json({ status: "success", msg: "post has been deleted" });
 });
 exports.deleteUserPostHandler = deleteUserPostHandler;
 // get the image

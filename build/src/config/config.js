@@ -1,8 +1,8 @@
 "use strict";
 module.exports = {
     "development": {
-        "username": "root",
-        "password": "neweins26",
+        "username": "",
+        "password": "",
         "database": "social_app",
         "host": "127.0.0.1",
         "dialect": "mysql"

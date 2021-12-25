@@ -54,7 +54,7 @@ const updatePost = (postId, { img_url, caption }) => __awaiter(void 0, void 0, v
     return yield PostDAL.update(postId, payload);
 });
 exports.updatePost = updatePost;
-const deletePost = (postId, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
-    yield PostDAL.deletepost(postId, userId, next);
+const deletePost = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    yield PostDAL.deletepost(postId, userId);
 });
 exports.deletePost = deletePost;

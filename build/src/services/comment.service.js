@@ -42,7 +42,7 @@ const getComment = (commentId) => __awaiter(void 0, void 0, void 0, function* ()
     return yield CommentDAL.find(commentId);
 });
 exports.getComment = getComment;
-const deleteComment = (commentId, userId, next) => __awaiter(void 0, void 0, void 0, function* () {
-    yield CommentDAL.destroy(commentId, userId, next);
+const deleteComment = (commentId, userId) => __awaiter(void 0, void 0, void 0, function* () {
+    yield CommentDAL.destroy(commentId, userId);
 });
 exports.deleteComment = deleteComment;
