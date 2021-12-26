@@ -27,34 +27,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createRetweet = void 0;
 const errors_1 = require("../errors");
 const RetweetDAL = __importStar(require("../DAL/retweet.dal"));
-const path_1 = __importDefault(require("path"));
-const upload_1 = require("../middleware/upload");
-const fs_1 = __importDefault(require("fs"));
 const createRetweet = (userId, postId, next) => __awaiter(void 0, void 0, void 0, function* () {
     const post = yield RetweetDAL.findById(postId);
     if (post.dataValues.userId == userId)
         throw new errors_1.BadRequestError("You cannot retweet your post");
-    if (post.dataValues.isARetweet)
-        throw new errors_1.BadRequestError("You cannot retweet a retweet");
     const retweeted = yield RetweetDAL.findRetweet(userId, postId);
     if (retweeted)
         throw new errors_1.BadRequestError("You already retweeted the post");
     // copy the image if any
-    if (post.dataValues.img_url !== null) {
-        const ext = path_1.default.extname(post.dataValues.img_url);
-        const fileName = `post_${(0, upload_1.nanoid)()}${Date.now()}${ext}`;
-        const newFileName = __basedir + "/resources/static/assets/uploads/" + fileName;
-        fs_1.default.copyFile(post.dataValues.img_url, newFileName, (err) => {
-            if (err)
-                next(err);
-        });
+    if (post.dataValues.img_url) {
+        const newFileName = post.dataValues.img_url;
         return RetweetDAL.create(userId, postId, post, newFileName);
     }
     return RetweetDAL.create(userId, postId, post);

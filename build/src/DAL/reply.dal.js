@@ -18,12 +18,8 @@ const { Post, Comment } = models_1.default;
 const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(payload);
     const comment = yield Comment.findOne({
-        where: { id: payload.postId }
+        where: { id: payload.postId },
     });
-    return yield comment.createReply({
-        userId: payload.userId,
-        text: payload.text,
-        commentId: payload.postId
-    });
+    return yield comment.createReply(Object.assign(Object.assign({}, payload), { commentId: payload.postId }));
 });
 exports.create = create;

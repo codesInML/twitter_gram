@@ -39,13 +39,13 @@ function createSession(userId, userAgent) {
     });
 }
 exports.createSession = createSession;
-function findSessions({ userId, valid }) {
+function findSessions({ userId, valid, }) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield SessionDAL.findAll(userId, valid);
     });
 }
 exports.findSessions = findSessions;
-function reIssueAccessToken({ refreshToken }) {
+function reIssueAccessToken({ refreshToken, }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { decoded } = (0, jwt_utils_1.verifyJWT)(refreshToken);
         if (!decoded || !(0, lodash_1.get)(decoded, "session"))
@@ -62,7 +62,7 @@ function reIssueAccessToken({ refreshToken }) {
     });
 }
 exports.reIssueAccessToken = reIssueAccessToken;
-const updateSessions = ({ userId, valid }) => __awaiter(void 0, void 0, void 0, function* () {
+const updateSessions = ({ userId, valid, }) => __awaiter(void 0, void 0, void 0, function* () {
     return yield SessionDAL.update(userId, valid);
 });
 exports.updateSessions = updateSessions;

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { ForbiddenError } from "../errors";
+import { BadRequestError, ForbiddenError } from "../errors";
 import {
   createComment,
   deleteComment,
@@ -15,6 +15,7 @@ export const addCommentHandler = async (
   next: NextFunction
 ) => {
   const payload = await postUpload(req, res, next);
+  console.log(payload);
 
   const { userId } = res.locals.user;
 
@@ -35,6 +36,8 @@ export const editCommentHandler = async (
 
   const post = await getComment(commentId);
   console.log(post);
+
+  if (!post) throw new BadRequestError("post does not exist");
 
   // check if the user own the post
   if (post.userId !== userId)

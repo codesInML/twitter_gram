@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -7,37 +7,45 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             const { User, Post, Comment } = models;
             // association with the user
-            this.belongsTo(User, { targetKey: "userId", foreignKey: {
+            this.belongsTo(User, {
+                targetKey: "userId",
+                foreignKey: {
                     allowNull: false,
-                    name: "userId"
-                } });
+                    name: "userId",
+                },
+            });
             // association with the post
-            this.belongsTo(Post, { targetKey: "id", foreignKey: {
+            this.belongsTo(Post, {
+                targetKey: "id",
+                foreignKey: {
                     allowNull: true,
-                    name: "postId"
-                } });
+                    name: "postId",
+                },
+            });
             // association with the comment
-            this.belongsTo(Comment, { targetKey: "id", foreignKey: {
+            this.belongsTo(Comment, {
+                targetKey: "id",
+                foreignKey: {
                     allowNull: true,
-                    name: "commentId"
-                } });
+                    name: "commentId",
+                },
+            });
         }
     }
-    ;
     Love.init({
         userId: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
         },
         postId: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
         },
         commentId: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
         },
     }, {
         sequelize,
-        modelName: 'Love',
+        modelName: "Love",
     });
     return Love;
 };

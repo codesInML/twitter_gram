@@ -16,6 +16,7 @@ const comment_service_1 = require("../services/comment.service");
 const image_upload_utils_1 = require("../utils/image-upload-utils");
 const addCommentHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const payload = yield (0, image_upload_utils_1.postUpload)(req, res, next);
+    console.log(payload);
     const { userId } = res.locals.user;
     const comment = yield (0, comment_service_1.createComment)(Object.assign({ userId }, payload));
     return res
@@ -28,6 +29,8 @@ const editCommentHandler = (req, res, next) => __awaiter(void 0, void 0, void 0,
     const commentId = req.params.commentId;
     const post = yield (0, comment_service_1.getComment)(commentId);
     console.log(post);
+    if (!post)
+        throw new errors_1.BadRequestError("post does not exist");
     // check if the user own the post
     if (post.userId !== userId)
         throw new errors_1.ForbiddenError("You cannot edit this comment");

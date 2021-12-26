@@ -25,12 +25,14 @@ const createSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, fun
     if (!user)
         throw new unauthenticated_1.default("Invalid email or password");
     // create the session
-    const session = yield (0, session_service_1.createSession)(user.userId, req.get('user-agent') || "");
+    const session = yield (0, session_service_1.createSession)(user.userId, req.get("user-agent") || "");
     // create an access token
     const accessToken = (0, jwt_utils_1.signJWT)(Object.assign(Object.assign({}, user), { session: session.id }), { expiresIn: process.env.ACCESS_TOKEN_TTL }); // 5 minutes
     // create an access token
     const refreshToken = (0, jwt_utils_1.signJWT)(Object.assign(Object.assign({}, user), { session: session.id }), { expiresIn: process.env.REFRESH_TOKEN_TTL }); // 1 year
-    return res.status(http_status_codes_1.StatusCodes.CREATED).json({ status: "success", accessToken, refreshToken });
+    return res
+        .status(http_status_codes_1.StatusCodes.CREATED)
+        .json({ status: "success", accessToken, refreshToken });
 });
 exports.createSessionHandler = createSessionHandler;
 const getUserSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -40,8 +42,10 @@ const getUserSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, fu
 });
 exports.getUserSessionHandler = getUserSessionHandler;
 const deleteUserSessionHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const sessionId = res.locals.user.session;
-    yield (0, session_service_1.updateSessions)({ userId: sessionId, valid: false });
-    return res.status(http_status_codes_1.StatusCodes.OK).json({ status: "success", accessToken: null, refreshToken: null });
+    const { userId } = res.locals.user;
+    yield (0, session_service_1.updateSessions)({ userId, valid: false });
+    return res
+        .status(http_status_codes_1.StatusCodes.OK)
+        .json({ status: "success", accessToken: null, refreshToken: null });
 });
 exports.deleteUserSessionHandler = deleteUserSessionHandler;
