@@ -2,7 +2,7 @@
 
 A social media API influenced greatly by twitter, built with node, typescript, express, sequelize and a lot more. It incorporates most of the twitter core features, following a certain design pattern used by industries.
 
-<!-- [Here](https://ohsocial.herokuapp.com/) is the link to the API base URL -->
+[Here](https://twitter-gram-api.herokuapp.com/) is the link to the API base URL
 
 If you're impressed then Star⭐ the repo and enjoy😉.
 
@@ -12,7 +12,7 @@ If you're impressed then Star⭐ the repo and enjoy😉.
 - [Getting Started](#getting-started)
   - [Features](#features)
   - [Making requests](#making-requests)
-- [Docs](https://documenter.getpostman.com/view/11680593/TzXtJfzY)
+- [Docs](https://twitter-gram-api.herokuapp.com/api-docs)
 
 ## 🛠️Technologies used
 
