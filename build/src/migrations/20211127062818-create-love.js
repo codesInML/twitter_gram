@@ -27,7 +27,7 @@ module.exports = {
                 type: DataTypes.INTEGER
             },
             deletedAt: {
-                allowNull: false,
+                allowNull: true,
                 type: DataTypes.DATE
             },
             createdAt: {
