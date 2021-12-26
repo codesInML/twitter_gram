@@ -26,10 +26,6 @@ module.exports = {
             commentId: {
                 type: DataTypes.INTEGER
             },
-            deletedAt: {
-                allowNull: true,
-                type: DataTypes.DATE
-            },
             createdAt: {
                 allowNull: false,
                 type: DataTypes.DATE
