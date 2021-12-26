@@ -499,27 +499,16 @@ paths:
           schema:
             type: string
       requestBody:
-        description: ""
         content:
-          text/plain:
+          multipart/form-data:
             schema:
-              type: string
-              example: >-
-                {
-
-                    "text": "This is another reply",
-
-                    "postId": {{commentId}}
-
-                }
-            example: >-
-              {
-
-                  "text": "This is another reply",
-
-                  "postId": {{commentId}}
-
-              }
+              type: object
+              properties:
+                text:
+                  type: string
+                file:
+                  type: string
+                  format: binary
         required: true
       responses:
         "200":
