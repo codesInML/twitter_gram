@@ -548,7 +548,7 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /post/image/{postId}:
+  /posts/image/{postId}:
     parameters:
       - in: path
         name: postId
