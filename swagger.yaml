@@ -553,7 +553,7 @@ paths:
       - in: path
         name: postId
         schema:
-          type: integer
+          type: string
         required: true
         description: The post ID
     get:
