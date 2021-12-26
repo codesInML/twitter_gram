@@ -77,7 +77,6 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-      security: []
     delete:
       tags:
         - Auth
@@ -97,7 +96,6 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-      security: []
   /posts:
     post:
       tags:
@@ -548,12 +546,12 @@ paths:
           description: ""
           headers: {}
       deprecated: false
-  /posts/image/{postId}:
+  /post/image/{postId}:
     parameters:
       - in: path
         name: postId
         schema:
-          type: string
+          type: integer
         required: true
         description: The post ID
     get:
