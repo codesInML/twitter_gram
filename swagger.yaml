@@ -105,7 +105,7 @@ paths:
       tags:
         - Post
       summary: create post
-      description: You can create post with this route
+      description: You can create post with this route. Either the caption or the file can be empty, but not both.
       operationId: createpost
       parameters:
         - name: x-refresh
@@ -364,7 +364,7 @@ paths:
       tags:
         - Comment
       summary: create comment
-      description: This route is used to comment on a particular post
+      description: This route is used to comment on a particular post. Like the create comment endpoint, text or file can be empty, but not both
       operationId: createcomment
       parameters:
         - name: x-refresh
@@ -512,27 +512,16 @@ paths:
             type: string
             example: "{{refreshToken}}"
       requestBody:
-        description: ""
         content:
-          text/plain:
+          multipart/form-data:
             schema:
-              type: string
-              example: >-
-                {
-
-                    "text": "This is another reply",
-
-                    "postId": {{commentId}}
-
-                }
-            example: >-
-              {
-
-                  "text": "This is another reply",
-
-                  "postId": {{commentId}}
-
-              }
+              type: object
+              properties:
+                text:
+                  type: string
+                file:
+                  type: string
+                  format: binary
         required: true
       responses:
         "200":
