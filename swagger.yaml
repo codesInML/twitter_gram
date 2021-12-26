@@ -453,14 +453,20 @@ paths:
       parameters:
         - name: commentId
           in: query
-          description: ""
-          required: true
+          description: "comment id you want to like"
           style: form
           explode: true
           schema:
             type: integer
             format: int32
-            example: 7
+        - name: postId
+          in: query
+          description: "Post id you want to like"
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
         - name: x-refresh
           in: header
           description: ""
